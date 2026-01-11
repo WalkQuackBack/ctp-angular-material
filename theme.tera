@@ -1,4 +1,122 @@
 ---
 whiskers:
   version: "^2.5.1"
+  matrix:
+    - flavor
+    - accent
+  filename: "scss/{{flavor.identifier}}/ctp-{{ flavor.identifier }}-{{ accent }}.scss"
+  hex_format: "#{{R}}{{G}}{{B}}"
 ---
+{# Primarily ported from the Userstyles M3 Library #}
+
+{%- set accent_color = flavor.colors[accent] -%}
+
+{%- set primary = accent_color -%}
+{%- set secondary = accent_color | sub(saturation=30) -%}
+{%- set tertiary = accent_color | add(lightness=5) -%}
+
+{%- set on_accent = base -%}
+
+{%- set fixed_flavor = flavors['mocha'] -%}
+
+{%- set fixed_primary = fixed_flavor.colors[accent] -%}
+{%- set fixed_secondary = fixed_flavor.colors[accent] | sub(saturation=30) -%}
+{%- set fixed_tertiary = fixed_flavor.colors[accent] | add(lightness=5) -%}
+{%- set fixed_on_accent = fixed_flavor.colors['base'] -%}
+
+@use '@angular/material' as mat;
+
+$ctp-theme: mat.define-theme(
+  (
+    color: (
+      use-system-variables: true
+    ),
+  ),
+);
+
+html {
+  @include system-variables();
+  @include mat.all-component-colors($ctp-theme);
+}
+
+@mixin system-variables {
+  // COLOR SYSTEM VARIABLES
+
+  // Primary palette variables
+  --mat-sys-primary: {{ primary.hex }};
+  --mat-sys-on-primary: {{ on_accent.hex }};
+  --mat-sys-primary-container: light-dark(#e0e0ff, #0000ef);
+  --mat-sys-on-primary-container: light-dark(#00006e, #e0e0ff);
+  --mat-sys-inverse-primary: light-dark(#bec2ff, #343dff);
+  --mat-sys-primary-fixed: light-dark(#e0e0ff, #e0e0ff);
+  --mat-sys-primary-fixed-dim: light-dark(#bec2ff, #bec2ff);
+  --mat-sys-on-primary-fixed: light-dark(#00006e, #00006e);
+  --mat-sys-on-primary-fixed-variant: light-dark(#0000ef, #0000ef);
+
+  // Secondary palette variables
+  --mat-sys-secondary: light-dark(#4c53b8, #bec2ff);
+  --mat-sys-on-secondary: {{ on_accent.hex }};
+  --mat-sys-secondary-container: light-dark(#e0e0ff, #333a9f);
+  --mat-sys-on-secondary-container: light-dark(#00006e, #e0e0ff);
+  --mat-sys-secondary-fixed: light-dark(#e0e0ff, #e0e0ff);
+  --mat-sys-secondary-fixed-dim: light-dark(#bec2ff, #bec2ff);
+  --mat-sys-on-secondary-fixed: light-dark(#00006e, #00006e);
+  --mat-sys-on-secondary-fixed-variant: light-dark(#333a9f, #333a9f);
+
+  // Tertiary palette variables
+  --mat-sys-tertiary: light-dark(#9727b4, #f4aeff);
+  --mat-sys-on-tertiary: {{ on_accent.hex }};
+  --mat-sys-tertiary-container: light-dark(#fdd6ff, #790095);
+  --mat-sys-on-tertiary-container: light-dark(#340042, #fdd6ff);
+  --mat-sys-tertiary-fixed: light-dark(#fdd6ff, #fdd6ff);
+  --mat-sys-tertiary-fixed-dim: light-dark(#f4aeff, #f4aeff);
+  --mat-sys-on-tertiary-fixed: light-dark(#340042, #340042);
+  --mat-sys-on-tertiary-fixed-variant: light-dark(#790095, #790095);
+
+  // Neutral palette variables
+  --mat-sys-background: light-dark(#f9f9f9, #131313);
+  --mat-sys-on-background: {{ text.hex }};
+  --mat-sys-surface: light-dark(#f9f9f9, #131313);
+  --mat-sys-surface-dim: light-dark(#dadada, #131313);
+  --mat-sys-surface-bright: light-dark(#f9f9f9, #393939);
+  --mat-sys-surface-container-low: light-dark(#f3f3f3, #1b1b1b);
+  --mat-sys-surface-container-lowest: light-dark(#ffffff, #0e0e0e);
+  --mat-sys-surface-container: light-dark(#eeeeee, #1f1f1f);
+  --mat-sys-surface-container-high: light-dark(#e8e8e8, #2a2a2a);
+  --mat-sys-surface-container-highest: light-dark(#e2e2e2, #353535);
+  --mat-sys-on-surface: light-dark(#1b1b1b, #e2e2e2);
+  --mat-sys-shadow: light-dark(#000000, #000000);
+  --mat-sys-scrim: light-dark(#000000, #000000);
+  --mat-sys-surface-tint: light-dark(#343dff, #bec2ff);
+  --mat-sys-inverse-surface: light-dark(#303030, #e2e2e2);
+  --mat-sys-inverse-on-surface: light-dark(#f1f1f1, #303030);
+  --mat-sys-outline: light-dark(#757589, #8f8fa4);
+  --mat-sys-outline-variant: light-dark(#c5c4db, #454558);
+  --mat-sys-neutral10: light-dark(#1b1b1b, #1b1b1b); // Variable used for the form field native select option text color
+
+  // Error palette variables
+  --mat-sys-error: light-dark(#ba1a1a, #ffb4ab);
+  --mat-sys-on-error: {{ on_accent.hex }};
+  --mat-sys-error-container: light-dark(#ffdad6, #93000a);
+  --mat-sys-on-error-container: light-dark(#410002, #ffdad6);
+
+  // Neutral variant palette variables
+  --mat-sys-surface-variant: light-dark(#e2e0f7, #454558);
+  --mat-sys-on-surface-variant: light-dark(#454558, #c5c4db);
+  --mat-sys-neutral-variant20: light-dark(#2e2f40, #2e2f40); // Variable used for the sidenav scrim (container background shadow when opened)
+
+  // ELEVATION SYSTEM VARIABLES
+
+  // Box shadow colors. Only used in the elevation level system variables.
+  --mat-sys-umbra-color: color-mix(in srgb, var(--mat-sys-shadow), transparent 80%);
+  --mat-sys-penumbra-color: color-mix(in srgb, var(--mat-sys-shadow), transparent 86%);
+  --mat-sys-ambient-color: color-mix(in srgb, var(--mat-sys-shadow), transparent 88%);
+
+  // Elevation level system variables. These are used as the value for box-shadow CSS property.
+  --mat-sys-level0: 0px 0px 0px 0px var(--mat-sys-umbra-color), 0px 0px 0px 0px var(--mat-sys-penumbra-color), 0px 0px 0px 0px var(--mat-sys-ambient-color);
+  --mat-sys-level1: 0px 2px 1px -1px var(--mat-sys-umbra-color), 0px 1px 1px 0px var(--mat-sys-penumbra-color), 0px 1px 3px 0px var(--mat-sys-ambient-color);
+  --mat-sys-level2: 0px 3px 3px -2px var(--mat-sys-umbra-color), 0px 3px 4px 0px var(--mat-sys-penumbra-color), 0px 1px 8px 0px var(--mat-sys-ambient-color);
+  --mat-sys-level3: 0px 3px 5px -1px var(--mat-sys-umbra-color), 0px 6px 10px 0px var(--mat-sys-penumbra-color), 0px 1px 18px 0px var(--mat-sys-ambient-color);
+  --mat-sys-level4: 0px 5px 5px -3px var(--mat-sys-umbra-color), 0px 8px 10px 1px var(--mat-sys-penumbra-color), 0px 3px 14px 2px var(--mat-sys-ambient-color);
+  --mat-sys-level5: 0px 7px 8px -4px var(--mat-sys-umbra-color), 0px 12px 17px 2px var(--mat-sys-penumbra-color), 0px 5px 22px 4px var(--mat-sys-ambient-color);
+}

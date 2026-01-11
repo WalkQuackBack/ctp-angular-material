@@ -3,6 +3,7 @@
   "specifiers": {
     "npm:@angular/cdk@^21.0.6": "21.0.6_@angular+common@21.0.8__@angular+core@21.0.8___rxjs@7.8.2__rxjs@7.8.2_@angular+core@21.0.8__rxjs@7.8.2_rxjs@7.8.2",
     "npm:@angular/material@^21.0.6": "21.0.6_@angular+cdk@21.0.6__@angular+common@21.0.8___@angular+core@21.0.8____rxjs@7.8.2___rxjs@7.8.2__@angular+core@21.0.8___rxjs@7.8.2__rxjs@7.8.2_@angular+common@21.0.8__@angular+core@21.0.8___rxjs@7.8.2__rxjs@7.8.2_@angular+core@21.0.8__rxjs@7.8.2_@angular+forms@21.0.8__@angular+common@21.0.8___@angular+core@21.0.8____rxjs@7.8.2___rxjs@7.8.2__@angular+core@21.0.8___rxjs@7.8.2__@angular+platform-browser@21.0.8___@angular+common@21.0.8____@angular+core@21.0.8_____rxjs@7.8.2____rxjs@7.8.2___@angular+core@21.0.8____rxjs@7.8.2___rxjs@7.8.2__rxjs@7.8.2_@angular+platform-browser@21.0.8__@angular+common@21.0.8___@angular+core@21.0.8____rxjs@7.8.2___rxjs@7.8.2__@angular+core@21.0.8___rxjs@7.8.2__rxjs@7.8.2_rxjs@7.8.2",
+    "npm:@catppuccin/palette@^1.7.1": "1.7.1",
     "npm:sass@^1.97.2": "1.97.2"
   },
   "npm": {
@@ -61,6 +62,9 @@
         "@angular/core",
         "tslib"
       ]
+    },
+    "@catppuccin/palette@1.7.1": {
+      "integrity": "sha512-aRc1tbzrevOTV7nFTT9SRdF26w/MIwT4Jwt4fDMc9itRZUDXCuEDBLyz4TQMlqO9ZP8mf5Hu4Jr6D03NLFc6Gw=="
     },
     "@parcel/watcher-android-arm64@2.5.1": {
       "integrity": "sha512-KF8+j9nNbUN8vzOFDpRMsaKBHZ/mcjEjMToVMJOhTozkDonQFFrRcfdLWn6yWKCmJKmdVxSgHiYvTCef4/qcBA==",
@@ -252,6 +256,7 @@
     "dependencies": [
       "npm:@angular/cdk@^21.0.6",
       "npm:@angular/material@^21.0.6",
+      "npm:@catppuccin/palette@^1.7.1",
       "npm:sass@^1.97.2"
     ]
   }

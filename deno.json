@@ -3,6 +3,7 @@
     "@/": "./scripts/",
     "@angular/cdk": "npm:@angular/cdk@^21.0.6",
     "@angular/material": "npm:@angular/material@^21.0.6",
+    "@catppuccin/palette": "npm:@catppuccin/palette@^1.7.1",
     "sass": "npm:sass@^1.97.2"
   },
   "tasks": {
