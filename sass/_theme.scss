@@ -110,7 +110,7 @@
   --mat-sys-surface-dim: $mantle;
   --mat-sys-surface-bright: $overlay0;
   --mat-sys-surface-container-low: color.adjust($base, if($flavor == "latte", -5%, $lightness: 5%));
-  --mat-sys-surface-container-lowest: light-dark(#ffffff, #0e0e0e);
+  --mat-sys-surface-container-lowest: @crust;
   --mat-sys-surface-container: $surface0;
   --mat-sys-surface-container-high: $surface1;
   --mat-sys-surface-container-highest: $surface2;
