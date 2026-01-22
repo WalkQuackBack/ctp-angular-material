@@ -12,7 +12,7 @@
   $prefix: "ctp-",
   $important: false
 ) {
-  $colors: map.get(catppuccin.$palette, $flavor);
+  $colors: map.get(ctp.$palette, $flavor);
 
   $rosewater: map.get($colors, "rosewater");
   $flamingo: map.get($colors, "flamingo");
@@ -44,15 +44,15 @@
   $accent: map.get($colors, $accentColor);
 
   $m3-primary: $accent;
-  $m3-secondary: desaturate($accent, 30%);
-  $m3-tertiary: lighten($accent, 5%);
+  $m3-secondary: color.adjust($accent, $saturation: -30%);
+  $m3-tertiary: color.adjust($accent, $lightness: 5%);
+  
+  $m3-fixed-flavor: map.get(ctp.$palette, "mocha");
 
   $m3-fixed-primary: map.get($m3-fixed-flavor, $accentColor);
-  $m3-fixed-secondary: desaturate(map.get($m3-fixed-flavor, $accentColor), 30%);
-  $m3-fixed-tertiary: lighten(map.get($m3-fixed-flavor, $accentColor), 5%);
+  $m3-fixed-secondary: color.adjust(map.get($m3-fixed-flavor, $accentColor), $saturation: -30%);
+  $m3-fixed-tertiary: color.adjust(map.get($m3-fixed-flavor, $accentColor), $lightness: 5%);
   $m3-fixed-on-accent: map.get($m3-fixed-flavor, "base");
-
-  $m3-fixed-flavor: map.get(catppuccin.$palette, "mocha");
 
   $m3-emphasize: if($flavor == "latte", -30%, 12.5%);
   $m3-deemphasize: 10%;
@@ -61,14 +61,14 @@
   $m3-inverse-flavor: if($flavor == latte, "mocha", "latte");
   $m3-black: map.get($m3-fixed-flavor, "crust");
 
-  $ctp-theme: mat.define-theme(
-    (
-      color: (
-        use-system-variables: true
-      ),
-    ),
-  );
-  @include mat.all-component-colors($ctp-theme);
+  // $ctp-theme: mat.define-theme(
+  //   (
+  //     color: (
+  //       use-system-variables: true
+  //     ),
+  //   ),
+  // );
+  // @include mat.all-component-colors($ctp-theme);
 
   // COLOR SYSTEM VARIABLES
 
@@ -76,7 +76,7 @@
   --mat-sys-primary: $m3-primary;
   --mat-sys-on-primary: $base;
   --mat-sys-primary-container: color.mix($m3-primary, $base, $weight: $m3-tint);
-  --mat-sys-on-primary-container: color.lighten($m3-primary, $m3-emphasize);
+  --mat-sys-on-primary-container: color.adjust($m3-primary, $lightness: $m3-emphasize);
   --mat-sys-inverse-primary: map.get($m3-inverse-flavor, $accentColor);
   --mat-sys-primary-fixed: $m3-fixed-primary;
   --mat-sys-primary-fixed-dim: color.darken($m3-fixed-primary, $m3-deemphasize);
@@ -87,7 +87,7 @@
   --mat-sys-secondary: $m3-secondary;
   --mat-sys-on-secondary: $base;
   --mat-sys-secondary-container: color.mix($m3-secondary, $base, $weight: $m3-tint);
-  --mat-sys-on-secondary-container: color.lighten($m3-secondary, $m3-emphasize);
+  --mat-sys-on-secondary-container: color.adjust($m3-secondary, $lightness: $m3-emphasize);
   --mat-sys-secondary-fixed: $m3-fixed-secondary;
   --mat-sys-secondary-fixed-dim: color.darken($m3-fixed-secondary, $m3-deemphasize);
   --mat-sys-on-secondary-fixed: $m3-fixed-on-accent;
@@ -97,9 +97,9 @@
   --mat-sys-tertiary: $m3-tertiary;
   --mat-sys-on-tertiary: $base;
   --mat-sys-tertiary-container: color.mix($m3-tertiary, $base, $weight: $m3-tint);
-  --mat-sys-on-tertiary-container: color.lighten($m3-tertiary, $m3-emphasize);
+  --mat-sys-on-tertiary-container: color.adjust($m3-tertiary, $lightness: $m3-emphasize);
   --mat-sys-tertiary-fixed: $m3-fixed-tertiary;
-  --mat-sys-tertiary-fixed-dim: color.darken($m3-fixed-tertiary, $m3-deemphasize);
+  --mat-sys-tertiary-fixed-dim: color.adjust($m3-fixed-tertiary, $lightness: -$m3-deemphasize);
   --mat-sys-on-tertiary-fixed: $m3-fixed-on-accent;
   --mat-sys-on-tertiary-fixed-variant: $m3-fixed-on-accent;
 
@@ -109,7 +109,7 @@
   --mat-sys-surface: $base;
   --mat-sys-surface-dim: $mantle;
   --mat-sys-surface-bright: $overlay0;
-  --mat-sys-surface-container-low: color.lighten($base, if($flavor == "latte", -5%, 5%));
+  --mat-sys-surface-container-low: color.adjust($base, if($flavor == "latte", -5%, $lightness: 5%));
   --mat-sys-surface-container-lowest: light-dark(#ffffff, #0e0e0e);
   --mat-sys-surface-container: $surface0;
   --mat-sys-surface-container-high: $surface1;
@@ -128,7 +128,7 @@
   --mat-sys-error: $red;
   --mat-sys-on-error: $base;
   --mat-sys-error-container: color.mix($red, $base, $weight: $m3-tint);
-  --mat-sys-on-error-container: color.lighten($red, $m3-emphasize);
+  --mat-sys-on-error-container: color.adjust($red, $lightness: $m3-emphasize);
 
   // Neutral variant palette variables
   --mat-sys-surface-variant: $overlay1;
