@@ -1,0 +1,8 @@
+@use "theme";
+
+:root {
+  @include theme.m3(
+    $flavor: "mocha",
+    $important: true
+  );
+}

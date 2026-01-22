@@ -1,0 +1,39 @@
+{
+  "name": "@catppuccin/angular-material",
+  "version": "1.0.0",
+  "description": "Soothing pastel theme for Angular Material",
+  "repository": "https://github.com/catppuccin/angular-material.git",
+  "author": "Catppuccin Org <releases@catppuccin.com>",
+  "contributors": [],
+  "funding": [
+    {
+      "type": "opencollective",
+      "url": "https://opencollective.com/catppuccin"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/catppuccin"
+    }
+  ],
+  "files": [
+    "css/**",
+    "sass/**"
+  ],
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "rimraf css && sass -I node_modules sass:css --no-source-map --style=compressed",
+    "build:pages": "npm run build && tailwindcss -mo preview/style.css",
+    "preview": "serve preview",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "@angular/cdk": "^21.1.1",
+    "@angular/material": "^21.1.1",
+    "@catppuccin/palette": "^1.0.0",
+    "rimraf": "^6.0.0",
+    "sass": "^1.85.1",
+    "serve": "^14.2.1"
+  },
+  "packageManager": "pnpm@10.28.1"
+}

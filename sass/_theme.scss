@@ -1,0 +1,152 @@
+// Ported off https://raw.githubusercontent.com/catppuccin/userstyles/refs/heads/feat/m3-lib/lib/m3.less
+
+@use '@angular/material' as mat;
+@use "@catppuccin/palette/scss/catppuccin" as ctp;
+
+@use "sass:color";
+@use "sass:map";
+
+@mixin m3(
+  $flavor,
+  $accentColor: "mauve",
+  $prefix: "ctp-",
+  $important: false
+) {
+  $colors: map.get(catppuccin.$palette, $flavor);
+
+  $rosewater: map.get($colors, "rosewater");
+  $flamingo: map.get($colors, "flamingo");
+  $pink: map.get($colors, "pink");
+  $mauve: map.get($colors, "mauve");
+  $red: map.get($colors, "red");
+  $maroon: map.get($colors, "maroon");
+  $peach: map.get($colors, "peach");
+  $yellow: map.get($colors, "yellow");
+  $green: map.get($colors, "green");
+  $teal: map.get($colors, "teal");
+  $sky: map.get($colors, "sky");
+  $sapphire: map.get($colors, "sapphire");
+  $blue: map.get($colors, "blue");
+  $lavender: map.get($colors, "lavender");
+  $text: map.get($colors, "text");
+  $subtext1: map.get($colors, "subtext1");
+  $subtext0: map.get($colors, "subtext0");
+  $overlay2: map.get($colors, "overlay2");
+  $overlay1: map.get($colors, "overlay1");
+  $overlay0: map.get($colors, "overlay0");
+  $surface2: map.get($colors, "surface2");
+  $surface1: map.get($colors, "surface1");
+  $surface0: map.get($colors, "surface0");
+  $base: map.get($colors, "base");
+  $mantle: map.get($colors, "mantle");
+  $crust: map.get($colors, "crust");
+
+  $accent: map.get($colors, $accentColor);
+
+  $m3-primary: $accent;
+  $m3-secondary: desaturate($accent, 30%);
+  $m3-tertiary: lighten($accent, 5%);
+
+  $m3-fixed-primary: map.get($m3-fixed-flavor, $accentColor);
+  $m3-fixed-secondary: desaturate(map.get($m3-fixed-flavor, $accentColor), 30%);
+  $m3-fixed-tertiary: lighten(map.get($m3-fixed-flavor, $accentColor), 5%);
+  $m3-fixed-on-accent: map.get($m3-fixed-flavor, "base");
+
+  $m3-fixed-flavor: map.get(catppuccin.$palette, "mocha");
+
+  $m3-emphasize: if($flavor == "latte", -30%, 12.5%);
+  $m3-deemphasize: 10%;
+  $m3-tint: if($flavor == "latte", 25%, 30%);
+
+  $m3-inverse-flavor: if($flavor == latte, "mocha", "latte");
+  $m3-black: map.get($m3-fixed-flavor, "crust");
+
+  $ctp-theme: mat.define-theme(
+    (
+      color: (
+        use-system-variables: true
+      ),
+    ),
+  );
+  @include mat.all-component-colors($ctp-theme);
+
+  // COLOR SYSTEM VARIABLES
+
+  // Primary palette variables
+  --mat-sys-primary: $m3-primary;
+  --mat-sys-on-primary: $base;
+  --mat-sys-primary-container: color.mix($m3-primary, $base, $weight: $m3-tint);
+  --mat-sys-on-primary-container: color.lighten($m3-primary, $m3-emphasize);
+  --mat-sys-inverse-primary: map.get($m3-inverse-flavor, $accentColor);
+  --mat-sys-primary-fixed: $m3-fixed-primary;
+  --mat-sys-primary-fixed-dim: color.darken($m3-fixed-primary, $m3-deemphasize);
+  --mat-sys-on-primary-fixed: $m3-fixed-on-accent;
+  --mat-sys-on-primary-fixed-variant: $m3-fixed-on-accent;
+
+  // Secondary palette variables
+  --mat-sys-secondary: $m3-secondary;
+  --mat-sys-on-secondary: $base;
+  --mat-sys-secondary-container: color.mix($m3-secondary, $base, $weight: $m3-tint);
+  --mat-sys-on-secondary-container: color.lighten($m3-secondary, $m3-emphasize);
+  --mat-sys-secondary-fixed: $m3-fixed-secondary;
+  --mat-sys-secondary-fixed-dim: color.darken($m3-fixed-secondary, $m3-deemphasize);
+  --mat-sys-on-secondary-fixed: $m3-fixed-on-accent;
+  --mat-sys-on-secondary-fixed-variant: $m3-fixed-on-accent;
+
+  // Tertiary palette variables
+  --mat-sys-tertiary: $m3-tertiary;
+  --mat-sys-on-tertiary: $base;
+  --mat-sys-tertiary-container: color.mix($m3-tertiary, $base, $weight: $m3-tint);
+  --mat-sys-on-tertiary-container: color.lighten($m3-tertiary, $m3-emphasize);
+  --mat-sys-tertiary-fixed: $m3-fixed-tertiary;
+  --mat-sys-tertiary-fixed-dim: color.darken($m3-fixed-tertiary, $m3-deemphasize);
+  --mat-sys-on-tertiary-fixed: $m3-fixed-on-accent;
+  --mat-sys-on-tertiary-fixed-variant: $m3-fixed-on-accent;
+
+  // Neutral palette variables
+  --mat-sys-background: $base;
+  --mat-sys-on-background: $text;
+  --mat-sys-surface: $base;
+  --mat-sys-surface-dim: $mantle;
+  --mat-sys-surface-bright: $overlay0;
+  --mat-sys-surface-container-low: color.lighten($base, if($flavor == "latte", -5%, 5%));
+  --mat-sys-surface-container-lowest: light-dark(#ffffff, #0e0e0e);
+  --mat-sys-surface-container: $surface0;
+  --mat-sys-surface-container-high: $surface1;
+  --mat-sys-surface-container-highest: $surface2;
+  --mat-sys-on-surface: $text;
+  --mat-sys-shadow: $m3-black;
+  --mat-sys-scrim: $m3-black;
+  --mat-sys-surface-tint: $m3-primary;
+  --mat-sys-inverse-surface: map.get($m3-inverse-flavor, "base");
+  --mat-sys-inverse-on-surface: map.get($m3-inverse-flavor, "text");
+  --mat-sys-outline: $overlay0;
+  --mat-sys-outline-variant: $overlay0;
+  --mat-sys-neutral10: map.get($m3-fixed-flavor, "base"); // Variable used for the form field native select option text color
+
+  // Error palette variables
+  --mat-sys-error: $red;
+  --mat-sys-on-error: $base;
+  --mat-sys-error-container: color.mix($red, $base, $weight: $m3-tint);
+  --mat-sys-on-error-container: color.lighten($red, $m3-emphasize);
+
+  // Neutral variant palette variables
+  --mat-sys-surface-variant: $overlay1;
+  --mat-sys-on-surface-variant: $subtext0;
+  --mat-sys-neutral-variant20: map.get($m3-fixed-flavor, "surface1"); // Variable used for the sidenav scrim (container background shadow when opened)
+
+  // ELEVATION SYSTEM VARIABLES
+
+  // Box shadow colors. Only used in the elevation level system variables.
+  --mat-sys-umbra-color: color-mix(in srgb, var(--mat-sys-shadow), transparent 80%);
+  --mat-sys-penumbra-color: color-mix(in srgb, var(--mat-sys-shadow), transparent 86%);
+  --mat-sys-ambient-color: color-mix(in srgb, var(--mat-sys-shadow), transparent 88%);
+
+  // Elevation level system variables. These are used as the value for box-shadow CSS property.
+  --mat-sys-level0: 0px 0px 0px 0px var(--mat-sys-umbra-color), 0px 0px 0px 0px var(--mat-sys-penumbra-color), 0px 0px 0px 0px var(--mat-sys-ambient-color);
+  --mat-sys-level1: 0px 2px 1px -1px var(--mat-sys-umbra-color), 0px 1px 1px 0px var(--mat-sys-penumbra-color), 0px 1px 3px 0px var(--mat-sys-ambient-color);
+  --mat-sys-level2: 0px 3px 3px -2px var(--mat-sys-umbra-color), 0px 3px 4px 0px var(--mat-sys-penumbra-color), 0px 1px 8px 0px var(--mat-sys-ambient-color);
+  --mat-sys-level3: 0px 3px 5px -1px var(--mat-sys-umbra-color), 0px 6px 10px 0px var(--mat-sys-penumbra-color), 0px 1px 18px 0px var(--mat-sys-ambient-color);
+  --mat-sys-level4: 0px 5px 5px -3px var(--mat-sys-umbra-color), 0px 8px 10px 1px var(--mat-sys-penumbra-color), 0px 3px 14px 2px var(--mat-sys-ambient-color);
+  --mat-sys-level5: 0px 7px 8px -4px var(--mat-sys-umbra-color), 0px 12px 17px 2px var(--mat-sys-penumbra-color), 0px 5px 22px 4px var(--mat-sys-ambient-color);
+}
